@@ -162,7 +162,7 @@ public class CodeGenerator {
             String className = symbolStack.pop();
             try {
 
-                Symbol s = symbolTable.get(className, methodName, next.value);
+                Symbol s = symbolTable.get(className, methodName, next.getValue());
                 VarType t = VarType.Int;
                 switch (s.type) {
                     case Bool:
@@ -183,7 +183,7 @@ public class CodeGenerator {
         } else {
             ss.push(new Address(0, VarType.Non));
         }
-        symbolStack.push(next.value);
+        symbolStack.push(next.getValue());
     }
 
     public void fpid() {
@@ -205,11 +205,11 @@ public class CodeGenerator {
     }
 
     public void kpid(Token next) {
-        ss.push(symbolTable.get(next.value));
+        ss.push(symbolTable.get(next.getValue()));
     }
 
     public void intpid(Token next) {
-        ss.push(new Address(Integer.parseInt(next.value), VarType.Int, TypeAddress.Imidiate));
+        ss.push(new Address(Integer.parseInt(next.getValue()), VarType.Int, TypeAddress.Imidiate));
     }
 
     public void startCall() {
