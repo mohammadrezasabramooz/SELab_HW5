@@ -3,7 +3,7 @@ package errorHandler;
 /**
  * Created by Alireza on 6/28/2015.
  */
-public class Errorhandler {
+public class ErrorhandlerClass {
     public static boolean hasError = false;
 
     public static void printError(String msg) {
@@ -11,3 +11,4 @@ public class Errorhandler {
         System.out.println(msg);
     }
 }
+
