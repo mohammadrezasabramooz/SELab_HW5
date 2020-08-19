@@ -44,14 +44,21 @@ public class Address {
         this.varType = varType;
     }
     public String toString(){
-        switch (Type){
-            case Direct:
-                return num+"";
-            case Indirect:
-                return "@"+num;
-            case Imidiate:
-                return "#"+num;
+        ToString toString;
+
+        if (Type.equals(TypeAddress.Direct)){
+            toString = new DirectAddToString();
+            return toString.toString(num);
+        }else if (Type.equals(TypeAddress.Indirect)){
+            toString = new IndirectAddToString();
+            return toString.toString(num);
+        }else if (Type.equals(TypeAddress.Imidiate)){
+            toString = new ImidiateToString();
+            return toString.toString(num);
+        }else {
+            toString = new OtherToString();
+            return toString.toString(num);
         }
-        return num+"";
+
     }
 }
