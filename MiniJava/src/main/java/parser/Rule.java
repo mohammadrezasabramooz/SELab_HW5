@@ -53,9 +53,34 @@ public class Rule {
 }
 
 class GrammarSymbol{
-    public boolean isTerminal;
-    public NonTerminal nonTerminal;
-    public Token terminal;
+    private boolean isTerminal;
+    private NonTerminal nonTerminal;
+    private Token terminal;
+
+    public boolean isTerminal() {
+        return isTerminal;
+    }
+
+    public NonTerminal getNonTerminal() {
+        return nonTerminal;
+    }
+
+    public Token getTerminal() {
+        return terminal;
+    }
+
+    public void setNonTerminal(NonTerminal nonTerminal) {
+        this.nonTerminal = nonTerminal;
+    }
+
+    public void setTerminal(Token terminal) {
+        this.terminal = terminal;
+    }
+
+    public void setTerminal(boolean terminal) {
+        isTerminal = terminal;
+    }
+
     public GrammarSymbol(NonTerminal nonTerminal)
     {
         this.nonTerminal = nonTerminal;
