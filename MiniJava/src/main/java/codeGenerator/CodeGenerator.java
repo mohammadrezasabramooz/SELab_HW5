@@ -1,7 +1,7 @@
 package codeGenerator;
 
 import Log.Log;
-import errorHandler.ErrorHandler;
+import errorHandler.ErrorhandlerHelper;
 import scanner.token.Token;
 import semantic.symbol.Symbol;
 import semantic.symbol.SymbolTable;
@@ -231,7 +231,7 @@ public class CodeGenerator {
         String className = callStack.pop();
         try {
             symbolTable.getNextParam(className, methodName);
-            ErrorHandler.printError("The few argument pass for method");
+            ErrorhandlerHelper.printError("The few argument pass for method");
         } catch (IndexOutOfBoundsException e) {}
             VarType t = VarType.Int;
             switch (symbolTable.getMethodReturnType(className, methodName))
@@ -272,14 +272,14 @@ public class CodeGenerator {
             }
             Address param = ss.pop();
             if (param.varType != t) {
-                ErrorHandler.printError("The argument type isn't match");
+                ErrorhandlerHelper.printError("The argument type isn't match");
             }
             memory.add3AddressCode(Operation.ASSIGN, param, new Address(s.address, t), null);
 
 //        symbolStack.push(className);
 
         } catch (IndexOutOfBoundsException e) {
-            ErrorHandler.printError("Too many arguments pass for method");
+            ErrorhandlerHelper.printError("Too many arguments pass for method");
         }
         callStack.push(methodName);
 
@@ -291,7 +291,7 @@ public class CodeGenerator {
             Address s2 = ss.pop();
 //        try {
             if (s1.varType != s2.varType) {
-                ErrorHandler.printError("The type of operands in assign is different ");
+                ErrorhandlerHelper.printError("The type of operands in assign is different ");
             }
 //        }catch (NullPointerException d)
 //        {
@@ -307,7 +307,7 @@ public class CodeGenerator {
         Address s1 = ss.pop();
 
         if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
-            ErrorHandler.printError("In add two operands must be integer");
+            ErrorhandlerHelper.printError("In add two operands must be integer");
         }
         memory.add3AddressCode(Operation.ADD, s1, s2, temp);
         ss.push(temp);
@@ -318,7 +318,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
-            ErrorHandler.printError("In sub two operands must be integer");
+            ErrorhandlerHelper.printError("In sub two operands must be integer");
         }
         memory.add3AddressCode(Operation.SUB, s1, s2, temp);
         ss.push(temp);
@@ -329,7 +329,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
-            ErrorHandler.printError("In mult two operands must be integer");
+            ErrorhandlerHelper.printError("In mult two operands must be integer");
         }
         memory.add3AddressCode(Operation.MULT, s1, s2, temp);
 //        memory.saveMemory();
@@ -368,7 +368,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != s2.varType) {
-            ErrorHandler.printError("The type of operands in equal operator is different");
+            ErrorhandlerHelper.printError("The type of operands in equal operator is different");
         }
         memory.add3AddressCode(Operation.EQ, s1, s2, temp);
         ss.push(temp);
@@ -379,7 +379,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != VarType.Int || s2.varType != VarType.Int) {
-            ErrorHandler.printError("The type of operands in less than operator is different");
+            ErrorhandlerHelper.printError("The type of operands in less than operator is different");
         }
         memory.add3AddressCode(Operation.LT, s1, s2, temp);
         ss.push(temp);
@@ -390,7 +390,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != VarType.Bool || s2.varType != VarType.Bool) {
-            ErrorHandler.printError("In and operator the operands must be boolean");
+            ErrorhandlerHelper.printError("In and operator the operands must be boolean");
         }
         memory.add3AddressCode(Operation.AND, s1, s2, temp);
         ss.push(temp);
@@ -402,7 +402,7 @@ public class CodeGenerator {
         Address s2 = ss.pop();
         Address s1 = ss.pop();
         if (s1.varType != VarType.Bool) {
-            ErrorHandler.printError("In not operator the operand must be boolean");
+            ErrorhandlerHelper.printError("In not operator the operand must be boolean");
         }
         memory.add3AddressCode(Operation.NOT, s1, s2, temp);
         ss.push(temp);
@@ -467,7 +467,7 @@ public class CodeGenerator {
                 temp = VarType.Bool;
         }
         if (s.varType != temp) {
-            ErrorHandler.printError("The type of method and return address was not match");
+            ErrorhandlerHelper.printError("The type of method and return address was not match");
         }
         memory.add3AddressCode(Operation.ASSIGN, s, new Address(symbolTable.getMethodReturnAddress(symbolStack.peek(), methodName), VarType.Address, TypeAddress.Indirect), null);
         memory.add3AddressCode(Operation.JP, new Address(symbolTable.getMethodCallerAddress(symbolStack.peek(), methodName), VarType.Address), null, null);
@@ -502,3 +502,4 @@ public class CodeGenerator {
     }
 
 }
+
