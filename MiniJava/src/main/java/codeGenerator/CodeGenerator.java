@@ -1,6 +1,6 @@
 package codeGenerator;
 
-import Log.Log;
+import Log.LogUtils;
 import errorHandler.ErrorhandlerHelper;
 import scanner.token.Token;
 import semantic.symbol.Symbol;
@@ -28,7 +28,7 @@ public class CodeGenerator {
         memory.pintCodeBlock();
     }
     public void semanticFunction(int func, Token next) {
-        Log.print("codegenerator : " + func);
+        LogUtils.print("codegenerator : " + func);
         switch (func) {
             case 0:
                 return;
@@ -502,4 +502,3 @@ public class CodeGenerator {
     }
 
 }
-
